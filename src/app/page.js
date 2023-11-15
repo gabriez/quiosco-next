@@ -6,7 +6,7 @@ export function generateMetadata ({searchParams}) {
   const name = searchParams.name;
   return {
     title: `Cafe - ${name}`,
-    description: `Cafe - ${name}, venta ${name}`
+    description: `Compra tu comida favorita en nuestro quiosco virtual, comida, comida rapida, venta ${name}`
   }
 }
 
@@ -17,7 +17,8 @@ export default async function Home({searchParams}) {
     const {data} = await axios(`http://localhost:3000/api/products?id=${id}`).then( response => response).catch(error => console.log(error));
     return data
   }
-  const products = await getProducts(searchParams.id);
+  let products = [];
+  if (searchParams?.id) products = await getProducts(searchParams.id);
 
 
   const name = searchParams.name;

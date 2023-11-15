@@ -2,7 +2,7 @@
 import { useState, useContext, createContext, useEffect } from "react"
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
+import { toast } from "react-toastify";
 const QuioscoContext = createContext();
 
 export default function useQuiosco () {
@@ -11,6 +11,9 @@ export default function useQuiosco () {
 export const QuioscoProvider = ({children}) => {
     const [categories, setCategories] = useState([]);
     const [selectCategory, setSelectCategory] = useState({})
+    const [modal, setModal] = useState(false);
+    const [product, setProduct] = useState({});
+    const [pedidos, setPedidos] = useState([])
     const router = useRouter();
 
 
@@ -29,8 +32,24 @@ export const QuioscoProvider = ({children}) => {
       setSelectCategory(...cat);
     }
 
+    const handleProductModal = information => {
+      if (information?.nombre) setProduct(information);
+      setModal(!modal);
+    }
+
+    const handleCreatePedido = ({categoriaId, imagen, ...pedido}) => {
+      if (pedidos.some(order => order.id === pedido.id)) {
+        setPedidos(pedidos.map( order => order.id === pedido.id ? pedido : order));
+        toast.success('Se actualizó el pedido correctamente');
+      } else { 
+        setPedidos([...pedidos, pedido]);
+        toast.success('Se agregó el pedido correctamente');
+      }      
+      setModal(false);
+    }
+
   return (
-    <QuioscoContext.Provider value={{categories, handleSelect, selectCategory}}>
+    <QuioscoContext.Provider value={{categories, handleSelect, selectCategory, handleProductModal, product, modal, handleCreatePedido, pedidos}}>
       {children}
     </QuioscoContext.Provider>
   )
