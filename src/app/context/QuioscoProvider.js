@@ -3,6 +3,7 @@ import { useState, useContext, createContext, useEffect } from "react"
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useSearchParams } from "next/navigation";
 const QuioscoContext = createContext();
 
 export default function useQuiosco () {
@@ -10,34 +11,31 @@ export default function useQuiosco () {
 }
 export const QuioscoProvider = ({children}) => {
     const [categories, setCategories] = useState([]);
-    const [selectCategory, setSelectCategory] = useState({})
     const [modal, setModal] = useState(false);
     const [product, setProduct] = useState({});
     const [pedidos, setPedidos] = useState([])
+    const searchParams = useSearchParams();
+    const step = searchParams.get('step')
+    
     const router = useRouter();
-
 
     const getCategories = async () => {
         const {data} = await axios('/api/categories');
         setCategories(data);
-        setSelectCategory(data[0])
-        router.push(`/?name=${data[0].nombre}&id=${data[0].id}`)
+        if (!/(1|2)/.test(step) || step.length === 0 ) {
+          router.push(`/?name=${data[0].nombre}&id=${data[0].id}&step=0`);
+        }
     }
     useEffect(()=> {
         getCategories();
     }, []);
-
-    const handleSelect = id => {
-      let cat = categories.filter(item => item.id === id );
-      setSelectCategory(...cat);
-    }
 
     const handleProductModal = information => {
       if (information?.nombre) setProduct(information);
       setModal(!modal);
     }
 
-    const handleCreatePedido = ({categoriaId, imagen, ...pedido}) => {
+    const handleCreatePedido = ({categoriaId, ...pedido}) => {
       if (pedidos.some(order => order.id === pedido.id)) {
         setPedidos(pedidos.map( order => order.id === pedido.id ? pedido : order));
         toast.success('Se actualizó el pedido correctamente');
@@ -48,8 +46,28 @@ export const QuioscoProvider = ({children}) => {
       setModal(false);
     }
 
+    const handleEditQuantity = id => {
+      let ModalInfo = pedidos.filter( item => item.id === id)
+      setModal(true);
+      setProduct(ModalInfo[0]);
+    }
+
+    const handleDeleteProduct = id => {
+      let pedidosUndeleted = pedidos.filter( item => item.id !== id)
+      setPedidos(pedidosUndeleted);
+    }
   return (
-    <QuioscoContext.Provider value={{categories, handleSelect, selectCategory, handleProductModal, product, modal, handleCreatePedido, pedidos}}>
+    <QuioscoContext.Provider value={{
+      categories, 
+      handleProductModal, 
+      product, 
+      modal, 
+      handleCreatePedido, 
+      pedidos,
+      handleEditQuantity,
+      handleDeleteProduct
+    }}
+      >
       {children}
     </QuioscoContext.Provider>
   )

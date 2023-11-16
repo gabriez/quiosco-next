@@ -24,7 +24,7 @@ export default async function Home({searchParams}) {
   const name = searchParams.name;
   return (
     <LayoutHome>
-      <h1 className="text-4xl font-black">{name}</h1>
+      <h1 className="text-4xl font-black mt-3">{name}</h1>
       <p className="text-2xl my-10">
         Elige y personaliza tu pedido
         

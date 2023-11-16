@@ -5,6 +5,7 @@ import ProductModal from "../ProductModal";
 import Modal from 'react-modal';
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css'
+import StepsNav from "../StepsNav";
 
 const customStyles = {
   content: {
@@ -31,6 +32,7 @@ const LayoutHome = ({children}) => {
           </aside>
           <main className="md:w-8/12 xl:w-3/4 2xl:w-4/5 h-screen overflow-y-scroll">
             <div className="p-10">
+              <StepsNav/>
               {children}
             </div>
             
