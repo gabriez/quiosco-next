@@ -3,7 +3,7 @@ import { useState, useContext, createContext, useEffect } from "react"
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 const QuioscoContext = createContext();
 
 export default function useQuiosco () {
@@ -16,13 +16,13 @@ export const QuioscoProvider = ({children}) => {
     const [pedidos, setPedidos] = useState([])
     const searchParams = useSearchParams();
     const step = searchParams.get('step')
-    
+    const path = usePathname();
     const router = useRouter();
 
     const getCategories = async () => {
         const {data} = await axios('/api/categories');
         setCategories(data);
-        if (!/(1|2)/.test(step) || step.length === 0 ) {
+        if ((!/(1|2)/.test(step) || step?.length === 0)&& path !== '/admin') {
           router.push(`/?name=${data[0].nombre}&id=${data[0].id}&step=0`);
         }
     }
@@ -65,7 +65,8 @@ export const QuioscoProvider = ({children}) => {
       handleCreatePedido, 
       pedidos,
       handleEditQuantity,
-      handleDeleteProduct
+      handleDeleteProduct,
+      setPedidos
     }}
       >
       {children}

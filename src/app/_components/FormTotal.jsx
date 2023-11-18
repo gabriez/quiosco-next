@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { formatMoney } from '../lib/helper';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import Loading from './Loading';
 
 const initialState = {
     type: null,
@@ -16,10 +17,10 @@ const ButtonForm = ({handleEmptyOrder}) => {
   const {pending } = useFormStatus(); 
   return (
     <button
-      className={`${handleEmptyOrder() || pending ? 'bg-indigo-300' : 'bg-indigo-600'} text-center cursor-pointer w-full lg:w-auto px-5 py-2 rounded uppercase font-bold text-white`}
+      className={`${handleEmptyOrder() || pending ? 'bg-indigo-300' : 'bg-indigo-600'} text-center cursor-pointer w-full lg:w-auto lg:min-w-[250px] px-5 py-2 rounded uppercase font-bold text-white`}
       type='submit' aria-disabled={pending || handleEmptyOrder()}>
-      { handleEmptyOrder() || pending ?  (
-        <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+      { pending ?  (
+       <Loading/>
       ) : 'Confirmar Pedido' }
     </button>
   )
@@ -27,7 +28,7 @@ const ButtonForm = ({handleEmptyOrder}) => {
 
 
 const FormTotal = () => {
-    const {pedidos} = useQuiosco();
+    const {pedidos, setPedidos} = useQuiosco();
     const [state, formAction] = useFormState(createTodo, initialState)
     const [total, setTotal] = useState(0);
     const router = useRouter();
@@ -48,8 +49,9 @@ const FormTotal = () => {
       if (state.type === 201) {
         toast.success(state.message)
         setTimeout(()=> {
+          setPedidos([])
           router.push('/?name=Café&id=1&step=0')
-        }, 3000)
+        }, 2500)
         
       }
     }, [state])
