@@ -14,7 +14,7 @@ export function generateMetadata ({searchParams}) {
 
 export default async function Home({searchParams}) {
   async function getProducts (id) {
-    const {data} = await axios(`http://localhost:3000/api/products?id=${id}`).then( response => response).catch(error => console.log(error));
+    const {data} = await axios(`${process.env.URL}/api/products?id=${id}`).then( response => response).catch(error => console.log(error));
     return data
   }
   let products = [];
