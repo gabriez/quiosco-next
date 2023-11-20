@@ -5,7 +5,7 @@ import axios from "axios";
 import Orden from "./Orden";
 const OrdenesAdmin = () => {
   const fetcher = () => axios('/api/pedidos').then(response => response.data);
-  const { data, error, isLoading } = useSWR('/api/pedidos', fetcher, {refreshInterval: 100});
+  const { data, error, isLoading } = useSWR('/api/pedidos', fetcher, {refreshInterval: 1000});
 
   return (
     <>

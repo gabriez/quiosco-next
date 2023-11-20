@@ -3,7 +3,6 @@ import Joi from "joi"
 import axios from "axios";
 import { revalidatePath } from 'next/cache'
 
-const URL = process.env.URL;
 
 const schema = Joi.object({
     nombre: Joi.string().min(3).max(30).required(),
@@ -25,7 +24,7 @@ export async function createTodo(prevState, formData ) {
         let objectSend = {
             ...value, fecha: Date.now().toString()
         }
-        await axios.post(`${URL}/api/pedidos`, objectSend);
+        await axios.post(`${headersList.get('x-forwarded-proto')}://${headersList.get('host')}/api/pedidos`, objectSend);
          revalidatePath('/')
         return {
             type: 201, 
