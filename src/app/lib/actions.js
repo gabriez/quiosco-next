@@ -24,7 +24,7 @@ export async function createTodo(prevState, formData ) {
         let objectSend = {
             ...value, fecha: Date.now().toString()
         }
-        await axios.post(`${headersList.get('x-forwarded-proto')}://${headersList.get('host')}/api/pedidos`, objectSend);
+        await axios.post(`http://${headersList.get('host')}/api/pedidos`, objectSend);
          revalidatePath('/')
         return {
             type: 201, 
