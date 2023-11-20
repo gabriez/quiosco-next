@@ -17,7 +17,7 @@ export default async function Home({searchParams}) {
   const headersList = headers()
 
   async function getProducts (id) {
-    const {data} = await axios(`${headersList.get('x-forwarded-proto')}://${headersList.get('host')}/api/products?id=${id}`).then( response => response).catch(error => console.log(error));
+    const {data} = await axios(`${headersList.get('x-forwarded-proto')}://www.${headersList.get('host')}/api/products?id=${id}`).then( response => response).catch(error => console.log(error));
     return data
   }
   let products = [];
