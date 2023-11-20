@@ -31,6 +31,7 @@ export async function createTodo(prevState, formData ) {
             message: 'Se guardó su pedido'
         }
     } catch (error) {
+        console.error(error);
         return {
             type: 408,
             message: 'Ha ocurrido un error al guardar los datos'
