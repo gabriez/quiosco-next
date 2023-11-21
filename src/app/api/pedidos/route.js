@@ -10,7 +10,7 @@ export async function GET() {
     });
 
 
-    return new Response(JSON.stringify(orders), {
+    return Response(orders, {
         status: 200,
         statusText: 'Se procesó la solicitud exitosamente'
     })
