@@ -4,7 +4,6 @@ const prisma = new PrismaClient();
 
 export async function PATCH (req, {params}) {
     const id = params.pedido;
-    console.log(id)
     let data 
     try {
         data = await prisma.orden.update({
