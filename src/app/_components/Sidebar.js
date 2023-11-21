@@ -22,7 +22,7 @@ const Sidebar = () => {
           className="m-auto"
         />
       </div>
-      <nav className={`${isOpen? 'left-0' : 'left-[-100%]'} top-2 bg-white absolute w-full md:relative overflow-hidden mt-10 md:block transition-all h-screen duration-300`}>
+      <nav className={`${isOpen? 'left-0' : 'left-[-100%]'} top-2 bg-white absolute w-full md:relative md:left-0 overflow-hidden mt-10 md:block transition-all h-screen duration-300`}>
         {categories.map(category => (
           <Category 
           key={category.id}
