@@ -18,7 +18,14 @@ export default async function Home({searchParams}) {
 
   async function getProducts (id) {
 
-    const {data} = await axios(`http://${headersList.get('host')}/api/products?id=${id}`).then(  res => res  ).catch(error => console.log(error));
+    const data = await fetch(`http://${headersList.get('host')}/api/products?id=${id}`).then(  res =>
+    {
+      if (new Headers(res.headers).get('content-type') === 'text/plain;charset=UTF-8'){
+        return res
+      }
+      return res.json()
+    }
+    ).catch(error => console.log(error));
 
     return data
   }
