@@ -20,6 +20,7 @@ export default async function Home({searchParams}) {
 
     const data = await fetch(`http://${headersList.get('host')}/api/products?id=${id}`).then( res =>
     {
+      console.log(res.headers['content-type'])
       if (res.headers['content-type'] === 'text/html'){
         return res
       }
