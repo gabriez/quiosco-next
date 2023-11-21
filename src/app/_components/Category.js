@@ -10,7 +10,7 @@ const Category = ({category}) => {
         {
             router.push(`/?name=${nombre}&id=${id}`)
         }} 
-    className={`${Number(searchParams.get('id')) === id ? "bg-amber-400" : "" } flex items-center gap-4 border w-full p-5 hover:cursor-pointer hover:bg-amber-400`}
+    className={`${Number(searchParams.get('id')) === id ? "bg-amber-400" : "" } flex items-center gap-4 border last-of-type:border-b-0 w-full p-5 hover:cursor-pointer hover:bg-amber-400`}
     >
       <Image 
         height={70}

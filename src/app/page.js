@@ -35,7 +35,7 @@ export default async function Home({searchParams}) {
         
       </p>
 
-      <div className="grid gap-4 grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {
           products?.length > 0 && 
           products?.map(product => <Product key={product.id} product={product}/>)

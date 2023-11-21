@@ -13,6 +13,7 @@ const Product = ({product}) => {
           width={400}
           height={500}
           alt={`imagen de ${nombre}`}
+          className="block m-auto"
         />
         <h3 className="text-2xl font-bold px-5 pt-5">
             {nombre}

@@ -18,6 +18,7 @@ export const QuioscoProvider = ({children}) => {
     const step = searchParams.get('step')
     const path = usePathname();
     const router = useRouter();
+    const [isOpen, setOpen] = useState(false)
 
     const getCategories = async () => {
         const {data} = await axios('/api/categories');
@@ -66,7 +67,9 @@ export const QuioscoProvider = ({children}) => {
       pedidos,
       handleEditQuantity,
       handleDeleteProduct,
-      setPedidos
+      setPedidos,
+      isOpen, 
+      setOpen
     }}
       >
       {children}
