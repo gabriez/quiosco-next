@@ -27,7 +27,7 @@ export default async function Home({searchParams}) {
       return res.json()
     }
     ).catch(error => console.log(error));
-    console.log(data)
+    
     return data
   }
   let products = [];
