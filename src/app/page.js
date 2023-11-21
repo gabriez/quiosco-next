@@ -22,6 +22,7 @@ export default async function Home({searchParams}) {
     {
       console.log(new Headers(res.headers).get('content-type'))
       if (new Headers(res.headers).get('content-type') === 'text/html; charset=utf-8'){
+        console.log(res)
         return res
       }
       return res.json()
