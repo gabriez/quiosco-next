@@ -3,17 +3,22 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export async function GET() {
-    const orders = await prisma.orden.findMany({
-        where: {
-           estado: false
-        }
-    });
-
-
-    return new Response(orders, {
-        status: 200,
-        statusText: 'Se procesó la solicitud exitosamente'
-    })
+    let orders
+    
+    try {
+        orders = await prisma.orden.findMany({
+            where: {
+               estado: false
+            }
+        });
+        return new Response(orders, {
+            status: 200,
+            statusText: 'Se procesó la solicitud exitosamente'
+        })
+    } catch (error) {
+        console.error('¿Cuál es el error?', error)
+        return new Response(error)
+    }
 }
 
 export async function POST(req) {
