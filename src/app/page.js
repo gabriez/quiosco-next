@@ -18,7 +18,7 @@ export default async function Home({searchParams}) {
 
   async function getProducts (id) {
 
-    const data = await fetch(`http://${headersList.get('host')}/api/products?id=${id}`).then( response => JSON.parse(response)).catch(error => console.log(error));
+    const data = await fetch(`http://${headersList.get('host')}/api/products?id=${id}`).then( response => response.json()).catch(error => console.log(error));
 
     return data
   }
@@ -37,8 +37,8 @@ export default async function Home({searchParams}) {
 
       <div className="grid gap-4 grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
         {
-          products.length > 0 && 
-          products.map(product => <Product key={product.id} product={product}/>)
+          products?.length > 0 && 
+          products?.map(product => <Product key={product.id} product={product}/>)
         }
       </div>
     </LayoutHome>
