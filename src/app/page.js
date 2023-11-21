@@ -18,7 +18,7 @@ export default async function Home({searchParams}) {
 
   async function getProducts (id) {
 
-    const data = await fetch(`http://${headersList.get('host')}/api/products?id=${id}`).then( response => response.json()).catch(error => console.log(error));
+    const data = await fetch(`http://${headersList.get('host')}/api/products?id=${id}`).then( response => JSON.parse(response)).catch(error => console.log(error));
 
     return data
   }
