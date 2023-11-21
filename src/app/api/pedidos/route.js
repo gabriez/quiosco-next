@@ -10,7 +10,7 @@ export async function GET() {
     });
 
 
-    return Response(orders, {
+    return new Response(orders, {
         status: 200,
         statusText: 'Se procesó la solicitud exitosamente'
     })
