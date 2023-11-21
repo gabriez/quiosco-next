@@ -44,6 +44,7 @@ const FormTotal = () => {
     
     useEffect(() => {
       if(state.type === 408) {
+        console.log(state.message)
         toast.error(state.message)
       } 
       if (state.type === 201) {
