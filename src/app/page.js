@@ -18,7 +18,7 @@ export default async function Home({searchParams}) {
 
   async function getProducts (id) {
 
-    const data = await fetch(`http://${headersList.get('host')}/api/products?id=${id}`, {cache: 'no-store'}).then(  res =>
+    const data = await fetch(`${headersList.get('x-forwarded-proto')}://${headersList.get('host')}/api/products?id=${id}`, {cache: 'no-store'}).then(  res =>
     {
       if (new Headers(res.headers).get('content-type') === 'text/html; charset=utf-8'){
         return res

@@ -14,7 +14,7 @@ export async function GET(request) {
                 categoriaId: id
             }
         });
-        console.log(dataProducts)
+
         return Response.json(dataProducts);
     } catch (error) {
         console.error('¿Cuál es el error?', error)

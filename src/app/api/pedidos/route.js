@@ -11,8 +11,8 @@ export async function GET() {
                estado: false
             }
         });
-        console.log(orders)
-        return new Response(orders, {
+
+        return new Response(JSON.stringify(orders), {
             status: 200,
             statusText: 'Se procesó la solicitud exitosamente'
         })
